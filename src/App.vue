@@ -94,6 +94,7 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  align-items: center;
   /* gap: 1rem; */
 }
 
@@ -119,6 +120,10 @@ h3 {
   font-size: 20px;
   border-radius: 50%;
   background-color: grey;
+}
+
+.theme-btn:hover {
+  cursor: pointer;
 }
 
 @media (max-width: 1700px) {
