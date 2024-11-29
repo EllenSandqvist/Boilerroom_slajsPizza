@@ -35,15 +35,15 @@ const drinkList = computed(() =>
     <div class="menuContainer" v-else>
       <h3>Pizza's</h3>
       <div class="menuItemsContainer">
-        <MenuCard :list="pizzaList" />
+        <MenuCard :list="pizzaList" :isDarkMode />
       </div>
       <h3>Salads</h3>
       <div class="menuItemsContainer">
-        <MenuCard :list="saladList" />
+        <MenuCard :list="saladList" :isDarkMode />
       </div>
       <h3>Drinks</h3>
       <div class="menuItemsContainer">
-        <MenuCard :list="drinkList" />
+        <MenuCard :list="drinkList" :isDarkMode />
       </div>
     </div>
     <!-- <button @click="useMenu">Hämta Meny</button> -->
@@ -58,6 +58,10 @@ const drinkList = computed(() =>
 * {
   box-sizing: border-box;
   margin: 0;
+}
+.dark {
+  background-color: rgb(40, 40, 40);
+  color: white;
 }
 </style>
 
@@ -103,11 +107,6 @@ h3 {
   grid-template-columns: repeat(3, 1fr);
   margin-bottom: 2em;
   gap: 10px;
-}
-
-.dark {
-  background-color: rgb(40, 40, 40);
-  color: white;
 }
 
 .theme-btn {

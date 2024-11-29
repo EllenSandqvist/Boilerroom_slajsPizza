@@ -1,6 +1,7 @@
 <script setup>
 const props = defineProps({
   selectedItem: Object,
+  isDarkMode: Boolean,
 });
 
 const emit = defineEmits(["close-modal"]);
@@ -8,7 +9,11 @@ const emit = defineEmits(["close-modal"]);
 
 <template>
   <div class="modal-bg" @click="emit('close-modal')">
-    <div class="modal-content" @click.stop>
+    <div
+      class="modal-content"
+      :class="{ 'modal-dark': isDarkMode }"
+      @click.stop
+    >
       <img
         :src="selectedItem.imgUrl"
         alt="selectedItem.name"
@@ -64,6 +69,11 @@ const emit = defineEmits(["close-modal"]);
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+}
+
+.modal-dark {
+  background: rgb(40, 40, 40);
+  border: 2px solid rgb(164, 164, 98);
 }
 
 .meal-img {

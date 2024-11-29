@@ -4,6 +4,7 @@ import { ref } from "vue";
 
 const { list } = defineProps({
   list: Array,
+  isDarkMode: Boolean,
 });
 
 const isModalOpen = ref(false);
@@ -52,6 +53,7 @@ const closeModal = () => {
     v-if="isModalOpen && selectedItem"
     :selectedItem="selectedItem"
     @close-modal="closeModal"
+    :isDarkMode
   />
 </template>
 
