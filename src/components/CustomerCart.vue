@@ -42,11 +42,17 @@ const totalPrice = computed(()=>{
       </div>
       <div class="customer-buttons">
           <!-- action buttons here -->
-          <button> buy now, italy</button>
+          <button> proceed now, italy</button>
           <span><strong>{{ totalPrice }} kr</strong></span>
           <button @click="emit('close')">Close box</button>
       </div>
-      
+        <!-- resister order -->
+      <!-- <div>
+  
+         <input type="text">
+         <button @click="emit('register')">Resister order</button>
+      </div>
+       -->
     </div>
   </div>
 </template>
