@@ -49,7 +49,7 @@ const closeModal = () => {
           <span v-else>, {{ ingredient }}</span>
         </span>
       </p>
-      <button class="addToCartBtn" @click.stop="emit('buy', item)">buy buy buy!</button>
+      <button class="addToCartBtn" @click.stop="emit('buy', item)">Add to cart</button>
     </div>
     <p class="meal-price">{{ item.price }}kr</p>
   </div>

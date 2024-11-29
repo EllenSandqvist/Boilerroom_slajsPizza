@@ -35,7 +35,7 @@ const addItemToShoppingCart = (item)=>{
       {{ isDarkMode ? "☀️" : "🌙" }}
     </button>
 
-    <button @click="showCart= true">Your pizza lmfa</button>
+    <button class="shopping-btn" @click="showCart= true">🛒</button>
   </header>
   <CustomerCart v-if="showCart" :shoppingCart="shoppingCart" @close="showCart=false"></CustomerCart>
   <main :class="{ dark: isDarkMode }">
@@ -147,6 +147,12 @@ h3 {
 .theme-btn:hover {
   cursor: pointer;
 }
+
+.shopping-btn{
+  font-size: 1.2rem;
+}
+
+
 
 @media (max-width: 1700px) {
   .menuItemsContainer {
