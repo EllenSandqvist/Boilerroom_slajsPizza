@@ -2,8 +2,10 @@
 import { computed, ref } from "vue";
 import { useMenu } from "./composables/useMenu.js";
 import MenuCard from "./components/MenuCard.vue";
+import CustomerCart from "./components/CustomerCart.vue"
 
 const { data, loading, error } = useMenu();
+const showCart = ref(false)
 
 const isDarkMode = ref(false);
 
@@ -25,8 +27,10 @@ const drinkList = computed(() =>
     <button @click="isDarkMode = !isDarkMode" class="theme-btn">
       {{ isDarkMode ? "☀️" : "🌙" }}
     </button>
-  </header>
 
+    <button @click="showCart= true">Your pizza lmfa</button>
+  </header>
+  <CustomerCart v-if="showCart" @close="showCart=false"></CustomerCart>
   <main :class="{ dark: isDarkMode }">
     <h2>Menu</h2>
     <p v-if="loading">loading...</p>
