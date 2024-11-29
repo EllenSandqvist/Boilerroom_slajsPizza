@@ -2,11 +2,13 @@
 import { computed, ref } from "vue";
 import { useMenu } from "./composables/useMenu.js";
 import MenuCard from "./components/MenuCard.vue";
-import CustomerCart from "./components/CustomerCart.vue"
+import CustomerCart from "./components/CustomerCart.vue";
+import StatisticsModal from "./components/StatisticsModal.vue";
 
 const { data, loading, error } = useMenu();
-const showCart = ref(false)
-const shoppingCart = ref([])
+const showCart = ref(false);
+const showStatistics = ref(false);
+const shoppingCart = ref([]);
 
 const isDarkMode = ref(false);
 
@@ -21,11 +23,10 @@ const drinkList = computed(() =>
   data.value.filter((item) => item.type === "drink")
 );
 
-
-const addItemToShoppingCart = (item)=>{
+const addItemToShoppingCart = (item) => {
   shoppingCart.value.push(item);
-  console.log(shoppingCart.value)
-}
+  console.log(shoppingCart.value);
+};
 </script>
 
 <template>
@@ -35,9 +36,14 @@ const addItemToShoppingCart = (item)=>{
       {{ isDarkMode ? "☀️" : "🌙" }}
     </button>
 
-    <button class="shopping-btn" @click="showCart= true">🛒</button>
+    <button class="shopping-btn" @click="showCart = true">🛒</button>
+    <button @click="showStatistics = true">Statistics</button>
   </header>
-  <CustomerCart v-if="showCart" :shoppingCart="shoppingCart" @close="showCart=false"></CustomerCart>
+  <CustomerCart
+    v-if="showCart"
+    :shoppingCart="shoppingCart"
+    @close="showCart = false"
+  ></CustomerCart>
   <main :class="{ dark: isDarkMode }">
     <p v-if="loading">loading...</p>
     <p v-else-if="error">{{ error }}</p>
@@ -58,8 +64,12 @@ const addItemToShoppingCart = (item)=>{
     </div>
     <!-- <button @click="useMenu">Hämta Meny</button> -->
   </main>
-
   <footer :class="{ dark: isDarkMode }">Kinda Programming</footer>
+  <StatisticsModal
+    v-if="showStatistics"
+    :isDarkMode
+    @close-modal="showStatistics = false"
+  />
 </template>
 
 <style>
@@ -102,7 +112,6 @@ h3 {
 
 .header {
   height: 120px;
-  margin-bottom: 1em;
 }
 
 .menuTitle,
@@ -148,11 +157,9 @@ h3 {
   cursor: pointer;
 }
 
-.shopping-btn{
+.shopping-btn {
   font-size: 1.2rem;
 }
-
-
 
 @media (max-width: 1700px) {
   .menuItemsContainer {
