@@ -36,7 +36,7 @@ const addItemToShoppingCart = (item) => {
       {{ isDarkMode ? "☀️" : "🌙" }}
     </button>
 
-    <button @click="showCart = true">Your pizza lmfa</button>
+    <button class="shopping-btn" @click="showCart = true">🛒</button>
     <button @click="showStatistics = true">Statistics</button>
   </header>
   <CustomerCart
@@ -155,6 +155,10 @@ h3 {
 
 .theme-btn:hover {
   cursor: pointer;
+}
+
+.shopping-btn {
+  font-size: 1.2rem;
 }
 
 @media (max-width: 1700px) {

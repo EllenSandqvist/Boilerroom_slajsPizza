@@ -1,5 +1,6 @@
 <script setup>
 import {computed} from 'vue'
+import {useBuyOrder} from '../composables/useBuyOrder.js'
 const {shoppingCart} = defineProps({ 
   shoppingCart: {
     type: Array,
@@ -9,6 +10,7 @@ const {shoppingCart} = defineProps({
 })
 const emit = defineEmits(['close']);
 
+const { sendOrder,data, loading, error } = useBuyOrder();
 
 const totalPrice = computed(()=>{
   
@@ -16,6 +18,18 @@ const totalPrice = computed(()=>{
   return shoppingCart.reduce((total, item) => total + item.price|| 0, 0)}
 
 )
+
+const allItems= computed(()=>{
+  
+  return shoppingCart.map((item)=> item.id )
+})
+
+const handleBuyOrder = ()=>{
+ 
+  const phone = "0731234567";  //this will change once we have a input field
+  sendOrder(phone, allItems.value);
+}
+
 </script>
 
 
@@ -40,9 +54,13 @@ const totalPrice = computed(()=>{
         </li>
         </ul>
       </div>
+      <div v-if="data">
+        <p>Your order id is: {{ data.order.id }}</p>
+        <p>Ready at: {{ new Date(data.order.eta).toLocaleTimeString('sv-SE',{hour:'2-digit', minute: '2-digit'})}}</p>
+      </div>
       <div class="customer-buttons">
           <!-- action buttons here -->
-          <button> proceed now, italy</button>
+          <button @click="handleBuyOrder"> BUY NOW!!!</button>
           <span><strong>{{ totalPrice }} kr</strong></span>
           <button @click="emit('close')">Close box</button>
       </div>
@@ -51,8 +69,8 @@ const totalPrice = computed(()=>{
   
          <input type="text">
          <button @click="emit('register')">Resister order</button>
-      </div>
-       -->
+      </div> -->
+      
     </div>
   </div>
 </template>
