@@ -1,9 +1,21 @@
 <script setup>
-const props = defineProps({
-  shoppingCart: Array
+import {computed} from 'vue'
+const {shoppingCart} = defineProps({ 
+  shoppingCart: {
+    type: Array,
+    default: () => [], // Provide a default value to avoid errors
+  }
+  
 })
 const emit = defineEmits(['close']);
 
+
+const totalPrice = computed(()=>{
+  
+   
+  return shoppingCart.reduce((total, item) => total + item.price|| 0, 0)}
+
+)
 </script>
 
 
@@ -15,12 +27,23 @@ const emit = defineEmits(['close']);
       <div class="customer-list">
         <!-- shopping list here -->
          <ul >
-          <li v-for="item in props.shoppingCart">{{item.name}}</li>
-         </ul>
+          <li  v-for="item in shoppingCart">
+            <div class="customer-item">
+                <img :src="item.imgUrl" alt="" class="meal-img" />
+                <span class="item-name">
+                    {{item.name}}
+                </span>
+                <strong class="item-price">
+                    {{ item.price }}kr
+                </strong>
+            </div>
+        </li>
+        </ul>
       </div>
       <div class="customer-buttons">
           <!-- action buttons here -->
           <button> buy now, italy</button>
+          <span><strong>{{ totalPrice }} kr</strong></span>
           <button @click="emit('close')">Close box</button>
       </div>
       
@@ -60,13 +83,53 @@ const emit = defineEmits(['close']);
 }
 .customer-list{
   flex-grow: 1;
+  border: 2px solid black;
+  width: 100%;
+  margin: 2em 1em;
+  overflow-y: scroll;
   
 }
 
-.customer-list ul{
-    list-style-type: none;
+.customer-item{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
 }
 
+.meal-img {
+  height: 30px;
+  align-self: center;
+}
+.customer-list ul{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap:0.5rem;
+    padding-top: 0.5rem;
+}
+
+.customer-list li{
+  width: 100%;
+  display: flex;
+  align-items: start;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+}
+
+.item-name {
+    flex-grow: 1; /* Take up all available space */
+    margin-left:0.5rem; /* Add space between name and image */
+}
+
+.item-price {
+    margin-left: auto; /* Push the price to the far right */
+}
 .customer-buttons{
   display: flex;
   flex-direction: row;
