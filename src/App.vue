@@ -2,8 +2,11 @@
 import { computed, ref } from "vue";
 import { useMenu } from "./composables/useMenu.js";
 import MenuCard from "./components/MenuCard.vue";
+import CustomerCart from "./components/CustomerCart.vue"
 
 const { data, loading, error } = useMenu();
+const showCart = ref(false)
+const shoppingCart = ref([])
 
 const isDarkMode = ref(false);
 
@@ -17,6 +20,12 @@ const saladList = computed(() =>
 const drinkList = computed(() =>
   data.value.filter((item) => item.type === "drink")
 );
+
+
+const addItemToShoppingCart = (item)=>{
+  shoppingCart.value.push(item);
+  console.log(shoppingCart.value)
+}
 </script>
 
 <template>
@@ -25,8 +34,10 @@ const drinkList = computed(() =>
     <button @click="isDarkMode = !isDarkMode" class="theme-btn">
       {{ isDarkMode ? "☀️" : "🌙" }}
     </button>
-  </header>
 
+    <button class="shopping-btn" @click="showCart= true">🛒</button>
+  </header>
+  <CustomerCart v-if="showCart" :shoppingCart="shoppingCart" @close="showCart=false"></CustomerCart>
   <main :class="{ dark: isDarkMode }">
     <p v-if="loading">loading...</p>
     <p v-else-if="error">{{ error }}</p>
@@ -34,7 +45,7 @@ const drinkList = computed(() =>
     <div class="menuContainer" v-else>
       <h3 class="category-text">Pizza</h3>
       <div class="menuItemsContainer">
-        <MenuCard :list="pizzaList" :isDarkMode />
+        <MenuCard :list="pizzaList" @buy="addItemToShoppingCart" :isDarkMode />
       </div>
       <h3 class="category-text">Salad</h3>
       <div class="menuItemsContainer">
@@ -136,6 +147,12 @@ h3 {
 .theme-btn:hover {
   cursor: pointer;
 }
+
+.shopping-btn{
+  font-size: 1.2rem;
+}
+
+
 
 @media (max-width: 1700px) {
   .menuItemsContainer {

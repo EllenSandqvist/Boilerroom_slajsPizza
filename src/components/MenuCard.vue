@@ -6,6 +6,7 @@ const { list } = defineProps({
   list: Array,
   isDarkMode: Boolean,
 });
+const emit = defineEmits(['buy'])
 
 const isModalOpen = ref(false);
 const selectedItem = ref(null);
@@ -19,6 +20,8 @@ const closeModal = () => {
   isModalOpen.value = false;
   // selectedItem.value = null;
 };
+
+
 </script>
 
 <template>
@@ -46,6 +49,7 @@ const closeModal = () => {
           <span v-else>, {{ ingredient }}</span>
         </span>
       </p>
+      <button class="addToCartBtn" @click.stop="emit('buy', item)">Add to cart</button>
     </div>
     <p class="meal-price">{{ item.price }}kr</p>
   </div>
@@ -85,6 +89,15 @@ const closeModal = () => {
 
 .meal-price {
   margin-left: auto;
+}
+
+.addToCartBtn {
+  border: none;
+  background-color: #ff0000;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: 60px;
 }
 </style>
 
