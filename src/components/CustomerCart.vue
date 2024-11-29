@@ -1,5 +1,7 @@
 <script setup>
-
+const props = defineProps({
+  shoppingCart: Array
+})
 const emit = defineEmits(['close']);
 
 </script>
@@ -12,8 +14,8 @@ const emit = defineEmits(['close']);
       <h2>Pizza box</h2>
       <div class="customer-list">
         <!-- shopping list here -->
-         <ul>
-          <li>test</li>
+         <ul >
+          <li v-for="item in props.shoppingCart">{{item.name}}</li>
          </ul>
       </div>
       <div class="customer-buttons">
@@ -58,6 +60,11 @@ const emit = defineEmits(['close']);
 }
 .customer-list{
   flex-grow: 1;
+  
+}
+
+.customer-list ul{
+    list-style-type: none;
 }
 
 .customer-buttons{

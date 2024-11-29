@@ -6,6 +6,7 @@ import CustomerCart from "./components/CustomerCart.vue"
 
 const { data, loading, error } = useMenu();
 const showCart = ref(false)
+const shoppingCart = ref([])
 
 const isDarkMode = ref(false);
 
@@ -19,6 +20,12 @@ const saladList = computed(() =>
 const drinkList = computed(() =>
   data.value.filter((item) => item.type === "drink")
 );
+
+
+const addItemToShoppingCart = (item)=>{
+  shoppingCart.value.push(item);
+  console.log(shoppingCart.value)
+}
 </script>
 
 <template>
@@ -30,7 +37,7 @@ const drinkList = computed(() =>
 
     <button @click="showCart= true">Your pizza lmfa</button>
   </header>
-  <CustomerCart v-if="showCart" @close="showCart=false"></CustomerCart>
+  <CustomerCart v-if="showCart" :shoppingCart="shoppingCart" @close="showCart=false"></CustomerCart>
   <main :class="{ dark: isDarkMode }">
     <h2>Menu</h2>
     <p v-if="loading">loading...</p>
@@ -39,7 +46,7 @@ const drinkList = computed(() =>
     <div class="menuContainer" v-else>
       <h3>Pizza's</h3>
       <div class="menuItemsContainer">
-        <MenuCard :list="pizzaList" />
+        <MenuCard :list="pizzaList" @buy="addItemToShoppingCart" />
       </div>
       <h3>Salads</h3>
       <div class="menuItemsContainer">

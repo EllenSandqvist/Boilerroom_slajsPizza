@@ -2,6 +2,8 @@
 const { list } = defineProps({
   list: Array,
 });
+
+const emit = defineEmits(['buy'])
 </script>
 
 <template>
@@ -27,6 +29,7 @@ const { list } = defineProps({
           <span v-else>, {{ ingredient }}</span>
         </span>
       </p>
+      <button class="addToCartBtn" @click="emit('buy', item)">buy buy buy!</button>
     </div>
     <p>{{ item.price }}kr</p>
   </div>
@@ -51,6 +54,15 @@ const { list } = defineProps({
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.addToCartBtn {
+  border: none;
+  background-color: #ff0000;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: 60px;
 }
 </style>
 
