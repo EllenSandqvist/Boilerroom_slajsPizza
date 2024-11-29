@@ -20,7 +20,7 @@ const drinkList = computed(() =>
 </script>
 
 <template>
-  <header :class="{ dark: isDarkMode }">
+  <header class="header" :class="{ dark: isDarkMode }">
     <span class="restaurantName">Umkoping Restaurant</span>
     <button @click="isDarkMode = !isDarkMode" class="theme-btn">
       {{ isDarkMode ? "☀️" : "🌙" }}
@@ -28,22 +28,21 @@ const drinkList = computed(() =>
   </header>
 
   <main :class="{ dark: isDarkMode }">
-    <h2>Menu</h2>
     <p v-if="loading">loading...</p>
     <p v-else-if="error">{{ error }}</p>
 
     <div class="menuContainer" v-else>
-      <h3>Pizza's</h3>
+      <h3 class="category-text">Pizza</h3>
       <div class="menuItemsContainer">
-        <MenuCard :list="pizzaList" />
+        <MenuCard :list="pizzaList" :isDarkMode />
       </div>
-      <h3>Salads</h3>
+      <h3 class="category-text">Salad</h3>
       <div class="menuItemsContainer">
-        <MenuCard :list="saladList" />
+        <MenuCard :list="saladList" :isDarkMode />
       </div>
-      <h3>Drinks</h3>
+      <h3 class="category-text">Drink</h3>
       <div class="menuItemsContainer">
-        <MenuCard :list="drinkList" />
+        <MenuCard :list="drinkList" :isDarkMode />
       </div>
     </div>
     <!-- <button @click="useMenu">Hämta Meny</button> -->
@@ -59,13 +58,17 @@ const drinkList = computed(() =>
   box-sizing: border-box;
   margin: 0;
 }
+.dark {
+  background-color: rgb(40, 40, 40);
+  color: white;
+}
 </style>
 
 <style scoped>
 header,
 footer {
   margin: 0;
-  height: 4rem;
+  height: 6rem;
   color: white;
   background-color: black;
   display: flex;
@@ -75,7 +78,7 @@ footer {
 }
 
 main {
-  padding: 1em;
+  padding: 3em;
 }
 
 h2 {
@@ -86,14 +89,25 @@ h3 {
   margin-bottom: 1em;
 }
 
+.header {
+  height: 120px;
+  margin-bottom: 1em;
+}
+
+.menuTitle,
+.category-text {
+  font-size: 28px;
+}
+
 .restaurantName {
-  font-size: 32px;
+  font-size: 3.5em;
 }
 
 .menuContainer {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  align-items: center;
   /* gap: 1rem; */
 }
 
@@ -102,11 +116,9 @@ h3 {
   grid-template-columns: repeat(3, 1fr);
   margin-bottom: 2em;
   gap: 10px;
-}
-
-.dark {
-  background-color: rgb(40, 40, 40);
-  color: white;
+  column-gap: 30px;
+  padding-bottom: 3em;
+  border-bottom: 5px solid rgb(171, 171, 110);
 }
 
 .theme-btn {
@@ -119,6 +131,10 @@ h3 {
   font-size: 20px;
   border-radius: 50%;
   background-color: grey;
+}
+
+.theme-btn:hover {
+  cursor: pointer;
 }
 
 @media (max-width: 1700px) {
