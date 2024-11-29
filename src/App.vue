@@ -120,4 +120,16 @@ h3 {
   border-radius: 50%;
   background-color: grey;
 }
+
+@media (max-width: 1700px) {
+  .menuItemsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1150px) {
+  .menuItemsContainer {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
